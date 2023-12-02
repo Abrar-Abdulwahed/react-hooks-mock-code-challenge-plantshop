@@ -4,19 +4,19 @@
       "id": 3,
       "name": "Pilea peperomioides",
       "image": "./images/pilea.jpg",
-      "price": 30
+      "price": "903.9"
     },
     {
       "id": 5,
       "name": "Jade",
       "image": "./images/jade.jpg",
-      "price": 10.37
+      "price": 20
     },
     {
       "id": 6,
       "name": "Monstera Deliciosa",
       "image": "./images/monstera.jpg",
-      "price": 25.99
+      "price": "25.998"
     },
     {
       "id": 7,

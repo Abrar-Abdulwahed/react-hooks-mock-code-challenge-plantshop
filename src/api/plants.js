@@ -9,4 +9,8 @@ export const getPlants = async () => {
     return response.data
 }
 
+export const updatePlant = async (id, plant) => {
+    return await plantAPI.patch(`/${id}`, plant)
+}
+
 export default plantAPI;
