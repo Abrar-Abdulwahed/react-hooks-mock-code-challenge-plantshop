@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaRegTrashCan, FaPenToSquare } from "react-icons/fa6";
-import { updatePlant } from "../api/plants";
+import { deletePlant, updatePlant } from "../api/plants";
 import { useMutation, useQueryClient } from "react-query";
 
 function PlantCard({ plant }) {
@@ -9,26 +9,26 @@ function PlantCard({ plant }) {
   const [edit, setEdit] = useState(false)
   const [inputPrice, setInputPrice] = useState(price);
 
-  const handleBlur = () => {
-    mutatePlant.mutate({ price: inputPrice });
-    setEdit((prev) => !prev);
-  };
-
   const handleChange = (event) => {
     const { value } = event.target;
     setInputPrice(value);
   };
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      mutatePlant.mutate({ price: inputPrice });
+      updatePlantMutate.mutate({ price: inputPrice });
       setEdit((prev) => !prev);
     }
   };
-  const mutatePlant = useMutation((updatedPlant) => updatePlant(id, updatedPlant), {
+  const updatePlantMutate = useMutation((updatedPlant) => updatePlant(id, updatedPlant), {
     onSuccess: () => {
       queryClient.invalidateQueries("plants");
     }
   });
+  const deletePlantMutate = useMutation(deletePlant, {
+      onSuccess: () => {
+          queryClient.invalidateQueries("plants")
+      }
+  })
   return (
     <li className="card">
       <img src={image || "https://via.placeholder.com/400"} alt={name} />
@@ -51,7 +51,7 @@ function PlantCard({ plant }) {
       ) : (
         <button onClick={() => setEdit(prev => !prev)}><FaPenToSquare className="green" /></button>
       )}
-			<button onClick={null}><FaRegTrashCan  className="red" /></button>
+			<button onClick={() => deletePlantMutate.mutate({id})}><FaRegTrashCan  className="red" /></button>
     </li>
   );
 }

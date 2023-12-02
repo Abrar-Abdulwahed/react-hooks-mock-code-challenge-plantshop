@@ -13,4 +13,8 @@ export const updatePlant = async (id, plant) => {
     return await plantAPI.patch(`/${id}`, plant)
 }
 
+
+export const deletePlant = async ({ id }) => {
+    return await plantAPI.delete(`/${id}`)
+}
 export default plantAPI;
