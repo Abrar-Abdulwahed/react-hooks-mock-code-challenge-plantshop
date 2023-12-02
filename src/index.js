@@ -2,5 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./components/App";
+import { QueryClient, QueryClientProvider } from "react-query";
+const queryClient = new QueryClient();
+ReactDOM.render(
+    <QueryClientProvider client={queryClient}><App /></QueryClientProvider>
 
-ReactDOM.render(<App />, document.getElementById("root"));
+, document.getElementById("root"));

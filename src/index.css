@@ -47,6 +47,14 @@ header h1 {
   text-shadow: 0 0 0 var(--green);
 }
 
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}
+
 main {
   padding: 0 1rem;
 }
