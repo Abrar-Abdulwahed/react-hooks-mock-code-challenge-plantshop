@@ -6,7 +6,8 @@ import { useMutation, useQueryClient } from "react-query";
 function PlantCard({ plant }) {
   const { id, name, image, price } = plant;
   const queryClient = useQueryClient();
-  const [edit, setEdit] = useState(false)
+  const [edit, setEdit] = useState(false);
+  const [inStock, setInStock] = useState(true);
   const [inputPrice, setInputPrice] = useState(price);
 
   const handleChange = (event) => {
@@ -34,10 +35,10 @@ function PlantCard({ plant }) {
       <img src={image || "https://via.placeholder.com/400"} alt={name} />
       <h4>{name}</h4>
       <p>Price: {price}</p>
-      {true ? (
-        <button className="primary">In Stock</button>
-      ) : (
-        <button>Out of Stock</button>
+      {inStock ? (
+        <button className="primary" onClick={() => setInStock(false)}>In Stock</button>
+        ) : (
+        <button className="secondary" onClick={() => setInStock(true)}>Out of Stock</button>
       )}
       {edit? (
           <input
