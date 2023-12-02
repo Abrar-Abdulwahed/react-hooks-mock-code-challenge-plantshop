@@ -9,16 +9,18 @@ export const getPlants = async () => {
     return response.data
 }
 
+export const searchPlants = async (searchTerm) => {
+    const response = await plantAPI.get(`?q=${searchTerm}`);
+    return response.data;
+};
 
 export const addPlant = async (plant) => {
     return await plantAPI.post("/", plant)
 }
 
-
 export const updatePlant = async (id, plant) => {
     return await plantAPI.patch(`/${id}`, plant)
 }
-
 
 export const deletePlant = async ({ id }) => {
     return await plantAPI.delete(`/${id}`)

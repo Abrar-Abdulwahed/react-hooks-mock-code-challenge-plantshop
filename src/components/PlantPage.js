@@ -1,26 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import NewPlantForm from "./NewPlantForm";
 import PlantList from "./PlantList";
 import Search from "./Search";
-import axios from "axios";
 import { useQuery } from "react-query";
-import { getPlants } from "../api/plants";
+import { getPlants, searchPlants } from "../api/plants";
 
-function PlantPage() {  
-  const { data: plants, isLoading, error } = useQuery('plants', getPlants);
-  if (isLoading) {
-    return <span>Loading...</span>
-  }
+function PlantPage() {
+  const [searchTerm, setSearchTerm] = useState("");
 
-  if (error) {
-    return <span>Error: {error.message}</span>
-  }
+  const plantsQuery = useQuery("plants", getPlants);
+  const searchQuery = useQuery(
+    ["plants", searchTerm],
+    () => searchPlants(searchTerm),
+    {
+      enabled: searchTerm !== ""
+    }
+  );
+
+  const handleSearch = (searchTerm) => {
+    setSearchTerm(searchTerm);
+  };
+
+  const plants = searchTerm ? searchQuery.data : plantsQuery.data;
 
   return (
     <main>
       <NewPlantForm />
-      <Search />
-      <PlantList plants={plants}/>
+      <Search onSearch={handleSearch} />
+      <PlantList plants={plants} />
     </main>
   );
 }
